@@ -1,0 +1,261 @@
+:root { --ph:#ff9000; --ph-soft:#ffb340; }
+body { background:#050505; font-family:"Segoe UI",system-ui,sans-serif; }
+#navbar { height:48px !important; background:#000 !important; border-bottom:2px solid var(--ph) !important; backdrop-filter:none !important; }
+#btnEnter, #heroPlay { background:var(--ph) !important; color:#000 !important; border-radius:4px !important; font-weight:900 !important; box-shadow:none !important; }
+#btnEnter:hover, #heroPlay:hover { background:var(--ph-soft) !important; }
+.cat-pill {
+  flex-shrink:0; background:#161616; border:1px solid #2a2a2a; color:#bbb;
+  padding:5px 11px; border-radius:3px; font-size:10px; font-weight:800;
+  text-transform:uppercase; cursor:pointer; white-space:nowrap;
+}
+.cat-pill:hover { border-color:var(--ph); color:var(--ph); }
+.cat-pill.active { background:var(--ph) !important; border-color:var(--ph) !important; color:#000 !important; }
+.genre-card {
+  background:#0d0d0d; border:1px solid #222; border-radius:4px;
+  padding:10px; text-align:left; transition:border-color .15s, background .15s;
+}
+.genre-card:hover { border-color:var(--ph); background:#141414; }
+.video-card { border-radius:3px; }
+.video-card .rounded-xl { border-radius:4px !important; }
+.page-btn {
+  background:#161616; border:1px solid #333; color:#ccc;
+  min-width:32px; height:32px; border-radius:3px; font-weight:800; cursor:pointer; font-size:12px;
+}
+.page-btn.active { background:var(--ph); border-color:var(--ph); color:#000; }
+.page-btn:hover:not(:disabled):not(.active) { border-color:var(--ph); color:var(--ph); }
+.page-btn:disabled { opacity:.35; }
+footer { background:#000 !important; border-top:2px solid var(--ph) !important; }
+#categoryPills { scrollbar-width:thin; }
+#categoryPills::-webkit-scrollbar { height:3px; }
+#categoryPills::-webkit-scrollbar-thumb { background:#333; }
+.bg-ph { background:var(--ph); color:#000; }
+.text-ph { color:var(--ph); }
+.hover\:bg-ph:hover { background:var(--ph); }
+.hover\:text-ph:hover { color:var(--ph); }
+::-webkit-scrollbar { width:8px; }
+::-webkit-scrollbar-track { background:#0a0a0a; }
+::-webkit-scrollbar-thumb { background:#2a2a2a; }
+::-webkit-scrollbar-thumb:hover { background:var(--ph); }
+
+/* ===== Responsive video player ===== */
+#videoModal { overscroll-behavior: none; }
+.player-shell { max-height: 100dvh; max-height: 100vh; }
+.player-stage {
+  /* leave room for top bar (~52px) + optional mobile footer */
+  min-height: 0;
+}
+.player-frame { position: relative;
+  /* width constrained by viewport; height by 16:9 and max viewport */
+  width: min(100%, 1100px);
+  max-height: min(calc(100dvh - 56px), calc(100vh - 56px));
+  aspect-ratio: 16 / 9;
+  margin: 0 auto;
+  position: relative;
+}
+@media (max-width: 639px) {
+  .player-frame {
+    width: 100%;
+    max-height: min(calc(100dvh - 96px), calc(100vh - 96px));
+    /* if very tall phone, still 16:9; if short landscape, limit height */
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+  }
+  .player-shell { justify-content: stretch; }
+}
+@media (max-width: 639px) and (orientation: landscape) {
+  .player-topbar { padding-top: 0.25rem; padding-bottom: 0.25rem; }
+  .player-frame {
+    max-height: min(calc(100dvh - 44px), calc(100vh - 44px));
+    width: auto;
+    height: min(calc(100dvh - 44px), calc(100vh - 44px));
+    aspect-ratio: 16 / 9;
+  }
+  /* hide mobile footer link in landscape to maximize video */
+  #videoModal .sm\\:hidden { display: none !important; }
+}
+.player-iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+}
+/* safe area for notched phones */
+@supports (padding: max(0px)) {
+  .player-topbar {
+    padding-left: max(0.75rem, env(safe-area-inset-left));
+    padding-right: max(0.75rem, env(safe-area-inset-right));
+    padding-top: max(0.5rem, env(safe-area-inset-top));
+  }
+}
+
+
+/* IndoAV blocked-embed gate (no copy-link page inside modal) */
+#embedGate {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  align-items: center;
+  justify-content: center;
+  background: #0a0a0a;
+}
+.embed-gate-inner { text-align: center; padding: 1.5rem; }
+.embed-gate-btn {
+  background: #e11d48;
+  color: #fff;
+  font-weight: 800;
+  font-size: 15px;
+  padding: 14px 28px;
+  border: 0;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.embed-gate-btn:hover { filter: brightness(1.08); }
+.embed-gate-note { margin-top: 12px; font-size: 12px; color: #888; max-width: 280px; margin-left: auto; margin-right: auto; }
+
+.embed-gate-inner { position: relative; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+.embed-gate-img {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: contain;
+  background: #111;
+  opacity: 0.85;
+  pointer-events: none;
+}
+.embed-gate-btn { position: relative; z-index: 2; }
+.embed-gate-note { position: relative; z-index: 2; }
+
+
+.share-app {
+  display:flex; align-items:center; justify-content:center;
+  min-height:44px; padding:8px 6px; border-radius:12px;
+  background:#1a1a1a; border:1px solid rgba(255,255,255,.08);
+  font-weight:700; cursor:pointer;
+}
+.share-app:hover { background:#262626; }
+#shareCopy.copied { background:#16a34a; }
+
+
+/* Responsive polish */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, video, iframe { max-width: 100%; }
+#videoGrid { width: 100%; }
+.video-card h3 { word-break: break-word; }
+
+#categoryPills {
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+#categoryPills::-webkit-scrollbar { display: none; }
+
+@media (max-width: 640px) {
+  #categoryPills {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 0.4rem;
+    padding-bottom: 0.5rem;
+    margin-bottom: 0.75rem;
+  }
+  .cat-pill { padding: 0.45rem 0.8rem; font-size: 11px; min-height: 36px; }
+  .card-share { width: 36px; height: 36px; }
+  #pagination { gap: 0.35rem; }
+  #pagination button { min-width: 36px; min-height: 36px; }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .cat-pill { font-size: 12px; }
+}
+
+@media (max-width: 380px) {
+  #videoGrid { gap: 0.4rem; }
+  .video-card h3 { font-size: 11px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .player-topbar { min-height: 40px; }
+}
+
+@supports (padding: max(0px)) {
+  body { padding-left: env(safe-area-inset-left); padding-right: env(safe-area-inset-right); }
+  .player-topbar { padding-top: max(0.5rem, env(safe-area-inset-top)); }
+}
+
+
+@media (max-width: 639px) {
+  #videoGrid { grid-template-columns: 1fr !important; }
+  .video-card h3 { font-size: 13px; line-height: 1.35; }
+}
+
+
+
+#videoGrid {
+  grid-template-columns: 1fr !important;
+  gap: 1.1rem !important;
+}
+@media (min-width: 640px) {
+  #videoGrid { grid-template-columns: 1fr 1fr !important; }
+}
+
+#videoGrid {
+  display: grid !important;
+  grid-template-columns: 1fr !important;
+  gap: 1.15rem !important;
+}
+@media (min-width: 640px) {
+  #videoGrid { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; }
+}
+
+
+#videoModal { background: #000 !important; }
+#modalBackdrop { background: #000 !important; opacity: 1 !important; }
+.player-shell { background: #000 !important; }
+.player-frame {
+  background: #000 !important;
+  overflow: hidden;
+}
+.player-iframe, #modalIframe {
+  background: #000 !important;
+}
+@media (max-width: 639px) {
+  .player-frame {
+    width: 100% !important;
+    max-height: none !important;
+    height: min(72dvh, 72vh) !important;
+    aspect-ratio: auto !important;
+  }
+}
+
+
+@media (max-width: 639px) {
+  #videoModal { background: #000 !important; }
+  .player-shell {
+    background: #000 !important;
+    min-height: 100dvh;
+    min-height: 100vh;
+  }
+  .player-stage {
+    flex: 1 1 auto !important;
+    display: flex !important;
+    align-items: stretch !important;
+    background: #000 !important;
+  }
+  .player-frame {
+    width: 100% !important;
+    height: 100% !important;
+    max-height: none !important;
+    min-height: 58dvh !important;
+    aspect-ratio: auto !important;
+    background: #000 !important;
+    border-radius: 0 !important;
+  }
+  .player-iframe, #modalIframe {
+    position: absolute !important;
+    inset: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background: #000 !important;
+  }
+}

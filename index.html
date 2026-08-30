@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <link rel="preload" as="image" href="/logo.png" fetchpriority="high">
+  <link rel="preload" as="image" href="/favicon.png">
+  <title>Dr. Pinguin Bokep, M.S.B. — Koleksi Video Indo Viral Terbaru</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon.png">
+  <link rel="apple-touch-icon" sizes="192x192" href="/apple-touch-icon.png">
+  <meta property="og:title" content="Dr. Pinguin Bokep, M.S.B.">
+  <meta property="og:description" content="Koleksi Dr. Pinguin Bokep, M.S.B. — Video indo viral terbaru. 18+.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://koleksidrpinguin.com/">
+  <meta property="og:image" content="https://koleksidrpinguin.com/logo.png">
+
+  <meta name="robots" content="index, follow">
+  <meta name="description" content="Koleksi Dr. Pinguin Bokep, M.S.B. — Ribuan video indo viral: ABG, jilbab, STW, amatir. Streaming embed IndoAV. Update rutin. 18+.">
+  <meta name="rating" content="adult">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css?v=grid2">
+  <script>
+    tailwind.config = {
+      theme: { extend: { colors: {
+        ph: { DEFAULT:'#ff9000', soft:'#ffb340', dim:'#cc7300' },
+        ink: { 950:'#050505', 900:'#0d0d0d', 800:'#161616', 700:'#222' }
+      }}}
+    }
+  </script>
+  <!-- Vercel Analytics -->
+  <script defer src="/_vercel/insights/script.js"></script>
+</head>
+<body class="bg-ink-950 text-white antialiased">
+
+  <div id="ageGate" data-nosnippet class="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black">
+    <div class="w-full max-w-sm text-center border border-ink-700 bg-ink-900 p-6 rounded">
+      <img src="/logo.png" decoding="async" fetchpriority="high" alt="" class="w-14 h-14 mx-auto rounded mb-3 object-cover">
+      <h1 class="text-2xl font-black tracking-tight mb-1"><span class="text-white">DR.</span><span class="text-ph">PINGUIN</span></h1>
+      <p class="text-neutral-400 text-sm mb-5">Konten 18+. Lanjut hanya jika kamu dewasa.</p>
+      <button id="btnEnter" class="w-full py-3 bg-ph hover:bg-ph-soft text-black font-black uppercase text-sm tracking-wider rounded">Masuk</button>
+      <button id="btnLeave" class="w-full mt-2 py-3 border border-neutral-700 text-neutral-400 font-semibold uppercase text-xs rounded hover:border-neutral-500">Keluar</button>
+    </div>
+  </div>
+
+  <!-- PH-style top bar -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 h-12 bg-black flex items-center border-b-2 border-ph">
+    <div class="w-full max-w-[1500px] mx-auto px-3 flex items-center gap-4">
+      <a href="#home" class="flex items-center gap-2 shrink-0 no-underline">
+        <img src="/logo.png" decoding="async" loading="lazy" class="w-7 h-7 rounded object-cover" alt="">
+        <span class="font-black text-base tracking-tight"><span class="text-white">DR.</span><span class="text-ph">PINGUIN</span></span>
+      </a>
+      <div class="hidden md:flex items-center gap-5 text-[11px] font-black uppercase tracking-wider text-neutral-400 ml-4">
+        <a href="#terbaru" class="hover:text-ph">Terbaru</a>
+        <a href="#genre" class="hover:text-ph">Kategori</a>
+        <a href="#trending" class="hover:text-ph">Trending</a>
+      </div>
+      <div class="ml-auto flex items-center gap-1">
+        <button id="searchToggle" class="w-9 h-9 flex items-center justify-center text-neutral-300 hover:text-ph" aria-label="Cari"><i class="fas fa-search"></i></button>
+        <button id="mobileMenuBtn" class="md:hidden w-9 h-9 flex items-center justify-center text-neutral-300"><i class="fas fa-bars"></i></button>
+      </div>
+    </div>
+    <div id="mobileMenu" class="absolute top-full left-0 right-0 bg-ink-900 border-b border-ink-700 hidden md:hidden">
+      <a href="#terbaru" class="block px-4 py-3 text-xs font-black uppercase border-b border-ink-700 hover:text-ph">Terbaru</a>
+      <a href="#genre" class="block px-4 py-3 text-xs font-black uppercase border-b border-ink-700 hover:text-ph">Kategori</a>
+      <a href="#trending" class="block px-4 py-3 text-xs font-black uppercase hover:text-ph">Trending</a>
+    </div>
+  </nav>
+
+  <div id="searchOverlay" class="fixed inset-0 z-[60] hidden bg-black/95">
+    <div class="max-w-2xl mx-auto mt-16 px-4">
+      <div class="relative">
+        <input id="searchInput" type="text" placeholder="Cari judul / kategori..." class="w-full bg-ink-800 border-2 border-ph rounded px-4 py-3 text-white outline-none text-sm">
+        <button id="searchClose" class="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 hover:text-white"><i class="fas fa-times"></i></button>
+      </div>
+      <div id="searchResults" class="mt-3 max-h-[60vh] overflow-y-auto space-y-1"></div>
+    </div>
+  </div>
+
+  <main id="mainContent" class="pt-12 opacity-0 transition-opacity duration-300">
+
+    <!-- Featured: wide embed strip (different from .site full-bleed cinematic) -->
+    <section id="home" class="bg-black">
+      <div class="max-w-[1500px] mx-auto px-3 py-3">
+        <div class="flex items-center justify-between mb-2">
+          <span class="text-[10px] font-black uppercase tracking-[0.2em] text-ph">Pilihan</span>
+          <div class="flex gap-1">
+            <button id="prevSlide" class="w-7 h-7 bg-ink-800 hover:bg-ph hover:text-black rounded text-[10px]"><i class="fas fa-chevron-left"></i></button>
+            <button id="nextSlide" class="w-7 h-7 bg-ink-800 hover:bg-ph hover:text-black rounded text-[10px]"><i class="fas fa-chevron-right"></i></button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-3">
+          <div class="lg:col-span-8 relative min-h-[220px] sm:min-h-[300px] lg:min-h-[360px] bg-ink-900 rounded overflow-hidden border border-ink-700">
+            <div id="heroSlides" class="absolute inset-0"></div>
+          </div>
+          <div class="lg:col-span-4 flex flex-col justify-center bg-ink-900 rounded border border-ink-700 p-4 sm:p-5">
+            <p class="text-[10px] font-black uppercase tracking-widest text-ph mb-2">Now Playing</p>
+            <h1 id="heroTitle" class="text-lg sm:text-xl font-bold leading-snug mb-2 line-clamp-4">Loading...</h1>
+            <p id="heroMeta" class="text-xs text-neutral-400 mb-4"></p>
+            <button id="heroPlay" class="self-start px-5 py-2.5 bg-ph hover:bg-ph-soft text-black font-black text-xs uppercase rounded">
+              <i class="fas fa-play mr-1"></i> Putar Video
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Dense grid section -->
+    <section id="terbaru" class="max-w-[1500px] mx-auto px-3 py-5">
+      <div class="flex items-end justify-between gap-2 mb-2">
+        <div>
+          <h2 class="text-sm font-black uppercase tracking-widest">Video <span class="text-ph">Terbaru</span></h2>
+          <p id="videoCount" class="text-[11px] text-neutral-500">0 video</p>
+        </div>
+      </div>
+      <div id="categoryPills" class="flex gap-1.5 overflow-x-auto pb-3 mb-3"></div>
+      <!-- denser than .site -->
+      <div id="videoGrid" class="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5"></div>
+      <div id="pagination" class="flex flex-wrap justify-center gap-1.5 mt-6"></div>
+    </section>
+
+    <section id="genre" class="bg-ink-900 border-y border-ink-700">
+      <div class="max-w-[1500px] mx-auto px-3 py-6">
+        <h2 class="text-sm font-black uppercase tracking-widest mb-4">Semua <span class="text-ph">Kategori</span></h2>
+        <div id="genreGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2"></div>
+        <div id="genrePagination" class="flex flex-wrap justify-center gap-1.5 mt-4"></div>
+      </div>
+    </section>
+
+    <section id="trending" class="max-w-[1500px] mx-auto px-3 py-6">
+      <h2 class="text-sm font-black uppercase tracking-widest mb-4">Trending <span class="text-ph">Sekarang</span></h2>
+      <div id="trendingGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6 gap-2 sm:gap-2.5"></div>
+    </section>
+
+    <footer class="bg-black border-t-2 border-ph">
+      <div class="max-w-[1500px] mx-auto px-3 py-5 flex flex-col sm:flex-row items-center justify-between gap-3">
+        <div class="flex items-center gap-2">
+          <img src="/logo.png" decoding="async" loading="lazy" class="w-6 h-6 rounded" alt="">
+          <span class="font-black text-sm"><span class="text-white">DR.</span><span class="text-ph">PINGUIN</span></span>
+        </div>
+        <p class="text-[11px] text-neutral-500 text-center">Koleksi Dr. Pinguin · 18+ only · Powered by IndoAV embed · Content creator @ IndoAV</p>
+      </div>
+    </footer>
+  </main>
+
+  
+  <!-- Responsive video player modal -->
+  <div id="videoModal" class="fixed inset-0 z-[80] hidden" role="dialog" aria-modal="true">
+    <div id="modalBackdrop" class="absolute inset-0 bg-black/95"></div>
+    <div class="player-shell relative z-10 w-full h-full flex flex-col">
+      <!-- Top bar -->
+      <div class="player-topbar flex items-center justify-between gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-black/90 border-b border-white/10 shrink-0">
+        <div class="min-w-0 flex-1">
+          <h3 id="modalTitle" class="text-xs sm:text-sm font-bold truncate text-white"></h3>
+          <p id="modalMeta" class="text-[10px] sm:text-[11px] text-ph font-bold uppercase tracking-wide"></p>
+        </div>
+        <div class="flex items-center gap-2 shrink-0">
+                    <button type="button" id="modalShare" class="inline-flex items-center px-2.5 py-1.5 text-[11px] font-bold text-neutral-300 hover:text-ph uppercase border border-white/15 rounded">Share</button>
+          <a id="modalOpenExternal" href="#" target="_blank" rel="noopener" class="hidden sm:inline-flex items-center px-2.5 py-1.5 text-[11px] font-bold text-neutral-300 hover:text-ph uppercase border border-white/15 rounded">Open</a>
+          <button id="modalClose" type="button" aria-label="Tutup" class="w-10 h-10 sm:w-9 sm:h-9 flex items-center justify-center bg-ph text-black font-black rounded text-base touch-manipulation">✕</button>
+        </div>
+      </div>
+      <!-- Stage: centers 16:9 player within viewport -->
+      <div class="player-stage flex-1 flex items-center justify-center p-0 sm:p-4 md:p-6 min-h-0">
+        <div class="player-frame w-full bg-black shadow-2xl overflow-hidden sm:rounded-lg border-0 sm:border sm:border-white/10">
+          <iframe id="modalIframe" referrerpolicy="origin" class="player-iframe" allowfullscreen allow="autoplay; fullscreen; encrypted-media; picture-in-picture" playsinline webkit-playsinline></iframe>
+        </div>
+      </div>
+      <!-- Mobile open link -->
+      <div class="sm:hidden shrink-0 px-3 py-2 bg-black/90 border-t border-white/10 flex justify-center">
+        <a id="modalShareMobile" href="#" class="flex-1 text-center py-2 text-xs font-bold uppercase border border-white/15 rounded mr-2">Share</a>
+          <a id="modalOpenExternalMobile" href="#" target="_blank" rel="noopener" class="text-[11px] font-bold text-ph uppercase tracking-wide py-2">Buka di tab baru</a>
+      </div>
+    </div>
+  </div>
+
+
+
+    <div id="shareSheet" class="fixed inset-0 z-[120] hidden" aria-hidden="true">
+      <div id="shareBackdrop" class="absolute inset-0 bg-black/70"></div>
+      <div class="relative z-10 mx-auto mt-[15vh] w-[92%] max-w-sm rounded-2xl bg-neutral-900 border border-white/10 p-4 shadow-2xl">
+        <div class="flex items-center justify-between mb-3">
+          <h4 class="text-sm font-bold text-white">Share this video</h4>
+          <button type="button" id="shareClose" class="w-8 h-8 rounded-full bg-white/10 text-white">✕</button>
+        </div>
+        <p id="shareTitlePreview" class="text-xs text-neutral-400 line-clamp-2 mb-3"></p>
+        <div class="grid grid-cols-3 gap-2 text-center text-[11px] text-neutral-200">
+          <button type="button" class="share-app" data-app="facebook">Facebook</button>
+          <button type="button" class="share-app" data-app="whatsapp">WhatsApp</button>
+          <button type="button" class="share-app" data-app="twitter">Twitter</button>
+          <button type="button" class="share-app" data-app="reddit">Reddit</button>
+          <button type="button" class="share-app" data-app="telegram">Telegram</button>
+          <button type="button" class="share-app" data-app="gmail">Gmail</button>
+        </div>
+        <button type="button" id="shareCopy" class="mt-3 w-full py-2.5 rounded-xl bg-white/10 text-white text-sm font-semibold">Salin link</button>
+      </div>
+    </div>
+
+
+<script src="js/app.js"></script></body>
+</html>

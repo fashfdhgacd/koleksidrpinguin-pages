@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="id" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel • Embed Video Gallery</title>
+  <meta name="robots" content="noindex, nofollow">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            surface: { 900: '#0a0a0b', 800: '#121214', 700: '#1a1a1e', 600: '#232328' }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <style>
+    .admin-card { transition: border-color 0.15s ease; }
+    .admin-card:hover { border-color: #e11d48; }
+  </style>
+</head>
+<body class="bg-surface-900 text-zinc-200 min-h-screen font-sans">
+  <!-- Login Screen -->
+  <div id="loginScreen" class="min-h-screen flex items-center justify-center p-4">
+    <div class="w-full max-w-md bg-surface-800 border border-zinc-700 rounded-3xl p-8 shadow-2xl">
+      <div class="text-center mb-8">
+        <div class="w-14 h-14 mx-auto rounded-2xl bg-gradient-to-br from-rose-500 to-orange-500 flex items-center justify-center text-white text-xl mb-4">
+          <i class="fas fa-lock"></i>
+        </div>
+        <h1 class="text-2xl font-bold">Admin Panel</h1>
+        <p class="text-zinc-400 text-sm mt-1">Masuk untuk mengelola video</p>
+        <a href="index.html" class="inline-flex items-center gap-1.5 text-xs text-zinc-500 hover:text-rose-400 mt-3 transition">
+          <i class="fas fa-arrow-left"></i> Kembali ke Gallery
+        </a>
+      </div>
+      
+      <div class="space-y-4">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1.5">Password</label>
+          <input type="password" id="loginPassword" placeholder="Masukkan password admin" 
+                 class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-3 outline-none focus:border-rose-500 transition">
+        </div>
+        <button id="loginBtn" class="w-full bg-rose-600 hover:bg-rose-500 text-white font-medium py-3 rounded-xl transition">
+          Masuk
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="adminApp" class="hidden min-h-screen">
+    <!-- Header -->
+    <header class="sticky top-0 z-40 border-b border-zinc-800 bg-surface-900/95 backdrop-blur">
+      <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="flex items-center gap-2 text-zinc-400 hover:text-white transition text-sm">
+            <i class="fas fa-arrow-left"></i>
+            <span class="hidden sm:inline">Kembali ke Gallery</span>
+          </a>
+          <h1 class="font-bold text-lg">Admin Panel</h1>
+        </div>
+        <div class="flex items-center gap-3">
+          <span id="adminVideoCount" class="text-sm text-zinc-400"><span class="text-emerald-400 font-mono">0</span> video</span>
+          <button id="logoutBtn" class="px-3 py-1.5 rounded-lg bg-zinc-800 border border-zinc-700 text-sm hover:border-rose-500/50 transition">
+            <i class="fas fa-sign-out-alt mr-1"></i> Logout
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 py-8">
+      <!-- Stats -->
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-4">
+          <div class="text-zinc-500 text-xs uppercase tracking-wider">Total Video</div>
+          <div id="statTotal" class="text-2xl font-bold mt-1">0</div>
+        </div>
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-4">
+          <div class="text-zinc-500 text-xs uppercase tracking-wider">Kategori</div>
+          <div id="statCats" class="text-2xl font-bold mt-1">0</div>
+        </div>
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-4">
+          <div class="text-zinc-500 text-xs uppercase tracking-wider">Mode</div>
+          <div class="text-sm font-medium mt-2 text-emerald-400">GitHub Auto-Save</div>
+        </div>
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-4">
+          <div class="text-zinc-500 text-xs uppercase tracking-wider">Status</div>
+          <div class="text-sm font-medium mt-2 text-emerald-400">Ready</div>
+        </div>
+      </div>
+
+      <!-- Info Banner -->
+      <div class="mb-8 p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-sm">
+        <div class="flex gap-3">
+          <i class="fas fa-info-circle text-amber-400 mt-0.5"></i>
+          <div>
+            <strong class="text-amber-300">Cara simpan perubahan (Static Site)</strong>
+            <p class="text-zinc-400 mt-1">
+              Perubahan disimpan di <strong>localStorage</strong> browser ini saja. Untuk membuat permanen:
+            </p>
+            <ol class="list-decimal list-inside text-zinc-400 mt-2 space-y-1">
+              <li>Klik <strong>Export JSON</strong> setelah menambah/edit video</li>
+              <li>Ganti file <code class="text-zinc-300">data/videos.json</code> di repository</li>
+              <li>Commit & push, lalu redeploy</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="flex gap-2 mb-6 border-b border-zinc-800 pb-2 overflow-x-auto">
+        <button class="admin-tab active px-4 py-2 rounded-xl text-sm font-medium bg-rose-600 text-white" data-tab="list">Daftar Video</button>
+        <button class="admin-tab px-4 py-2 rounded-xl text-sm font-medium bg-surface-800 border border-zinc-700" data-tab="add">Tambah Video</button>
+        <button class="admin-tab px-4 py-2 rounded-xl text-sm font-medium bg-surface-800 border border-zinc-700" data-tab="bulk">Bulk Import</button>
+        <button class="admin-tab px-4 py-2 rounded-xl text-sm font-medium bg-surface-800 border border-zinc-700" data-tab="export">Export / Import</button>
+      </div>
+
+      <!-- TAB: List -->
+      <div id="tab-list" class="tab-content">
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <input type="search" id="adminSearch" placeholder="Cari video..." class="flex-1 bg-surface-800 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm outline-none focus:border-rose-500">
+          <select id="adminCatFilter" class="bg-surface-800 border border-zinc-700 rounded-xl px-4 py-2.5 text-sm outline-none">
+            <option value="All">Semua Kategori</option>
+          </select>
+        </div>
+        <div id="adminVideoList" class="space-y-3"></div>
+      </div>
+
+      <!-- TAB: Add / Edit -->
+      <div id="tab-add" class="tab-content hidden">
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-6 max-w-2xl">
+          <h2 class="text-lg font-semibold mb-4" id="formTitle">Tambah Video Baru</h2>
+          <form id="videoForm" class="space-y-4">
+            <input type="hidden" id="editId">
+            <div>
+              <label class="block text-sm text-zinc-400 mb-1">Judul *</label>
+              <input type="text" id="formTitleInput" required class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-2.5 outline-none focus:border-rose-500" placeholder="Judul video">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-1">Embed / Direct URL *</label>
+              <input type="url" id="formEmbed" required class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-2.5 outline-none focus:border-rose-500" placeholder="https://tv1.indoav.app/e/xxxxx">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-1">Thumbnail URL</label>
+              <input type="url" id="formThumb" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-2.5 outline-none focus:border-rose-500" placeholder="Opsional">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block text-sm text-zinc-400 mb-1">Kategori</label>
+                <input type="text" id="formCategory" list="catList" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-2.5 outline-none focus:border-rose-500" placeholder="Umum, Jilbab, ABG, dll">
+                <datalist id="catList">
+                  <option value="Umum"><option value="Jilbab"><option value="ABG"><option value="STW"><option value="Viral"><option value="Colmek">
+                </datalist>
+              </div>
+              <div>
+                <label class="block text-sm text-zinc-400 mb-1">Tanggal</label>
+                <input type="date" id="formDate" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-2.5 outline-none focus:border-rose-500">
+              </div>
+            </div>
+            <div class="flex gap-3 pt-2">
+              <button type="submit" class="flex-1 bg-rose-600 hover:bg-rose-500 text-white font-medium py-2.5 rounded-xl transition">Simpan</button>
+              <button type="button" id="cancelEdit" class="px-5 py-2.5 rounded-xl bg-zinc-800 border border-zinc-700 hover:border-zinc-500 transition">Batal</button>
+            </div>
+          </form>
+          <div id="previewBox" class="mt-6 hidden">
+            <h3 class="text-sm font-medium text-zinc-400 mb-2">Preview</h3>
+            <div class="aspect-video bg-black rounded-xl overflow-hidden border border-zinc-700">
+              <iframe id="previewIframe" class="w-full h-full" frameborder="0" allowfullscreen></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Bulk Import -->
+      <div id="tab-bulk" class="tab-content hidden">
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-6">
+          <h2 class="text-lg font-semibold mb-2">Bulk Import Embed URLs</h2>
+          <p class="text-sm text-zinc-400 mb-4">Paste satu URL per baris.</p>
+          <textarea id="bulkInput" rows="10" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-4 py-3 text-sm font-mono outline-none focus:border-rose-500" placeholder="https://tv1.indoav.app/e/xxx"></textarea>
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-4">
+            <div>
+              <label class="block text-sm text-zinc-400 mb-1">Prefix Judul</label>
+              <input type="text" id="bulkTitlePrefix" value="Video" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-1">Kategori Default</label>
+              <input type="text" id="bulkCategory" value="Umum" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none">
+            </div>
+            <div>
+              <label class="block text-sm text-zinc-400 mb-1">Tanggal</label>
+              <input type="date" id="bulkDate" class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none">
+            </div>
+          </div>
+          <div class="flex flex-wrap gap-3 mt-5">
+            <button id="bulkPreviewBtn" class="px-5 py-2.5 rounded-xl bg-zinc-700 hover:bg-zinc-600 transition text-sm">Preview & Validasi</button>
+            <button id="bulkImportBtn" class="px-5 py-2.5 rounded-xl bg-rose-600 hover:bg-rose-500 transition text-sm font-medium" disabled>Import Selected</button>
+          </div>
+          <div id="bulkPreview" class="mt-6 hidden">
+            <h3 class="text-sm font-medium mb-3">Preview hasil validasi</h3>
+            <div id="bulkPreviewList" class="space-y-2 max-h-80 overflow-y-auto text-sm"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB: Export / Import -->
+      <div id="tab-export" class="tab-content hidden">
+        <div class="bg-surface-800 border border-zinc-800 rounded-2xl p-6 max-w-xl space-y-6">
+
+          <!-- AUTO SAVE TO GITHUB -->
+          <div class="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/30">
+            <h2 class="text-lg font-semibold mb-1 text-emerald-400">
+              <i class="fab fa-github mr-2"></i>Simpan ke GitHub (Otomatis)
+            </h2>
+            <p class="text-sm text-zinc-400 mb-4">
+              Push langsung ke <code class="text-zinc-300">data/videos.json</code>. Vercel akan redeploy otomatis.
+            </p>
+
+            <div class="space-y-3 mb-4">
+              <div>
+                <label class="block text-xs text-zinc-500 mb-1">GitHub Token (PAT)</label>
+                <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxx"
+                       class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500">
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-zinc-500 mb-1">Owner</label>
+                  <input type="text" id="ghOwner" value="fashfdhgacd"
+                         class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-xs text-zinc-500 mb-1">Repo</label>
+                  <input type="text" id="ghRepo" value="koleksi-dr-pinguin"
+                         class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500">
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-3">
+                <div>
+                  <label class="block text-xs text-zinc-500 mb-1">Path file</label>
+                  <input type="text" id="ghPath" value="data/videos.json"
+                         class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500">
+                </div>
+                <div>
+                  <label class="block text-xs text-zinc-500 mb-1">Branch</label>
+                  <input type="text" id="ghBranch" value="main"
+                         class="w-full bg-surface-900 border border-zinc-700 rounded-xl px-3 py-2 text-sm outline-none focus:border-emerald-500">
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button id="ghPushBtn" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-medium transition">
+                <i class="fas fa-cloud-upload-alt mr-2"></i> Simpan ke GitHub
+              </button>
+              <button id="ghSaveConfig" class="px-4 py-2.5 rounded-xl bg-zinc-800 border border-zinc-600 text-sm hover:border-emerald-500/50 transition">
+                Simpan Config
+              </button>
+            </div>
+            <div id="ghStatus" class="text-sm mt-3"></div>
+          </div>
+
+          <div class="border-t border-zinc-700 pt-6">
+            <h2 class="text-lg font-semibold mb-2">Export Manual</h2>
+            <p class="text-sm text-zinc-400 mb-4">Download file JSON (backup).</p>
+            <button id="exportBtn" class="px-5 py-2.5 rounded-xl bg-zinc-700 hover:bg-zinc-600 text-white font-medium transition">
+              <i class="fas fa-download mr-2"></i> Download videos.json
+            </button>
+          </div>
+          <div class="border-t border-zinc-700 pt-6">
+            <h2 class="text-lg font-semibold mb-2">Import dari file</h2>
+            <p class="text-sm text-zinc-400 mb-4">Load file videos.json dari komputer.</p>
+            <input type="file" id="importFile" accept=".json,application/json" class="block w-full text-sm text-zinc-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:bg-zinc-700 file:text-white hover:file:bg-zinc-600">
+          </div>
+          <div class="border-t border-zinc-700 pt-6">
+            <h2 class="text-lg font-semibold mb-2 text-rose-400">Reset Data</h2>
+            <p class="text-sm text-zinc-400 mb-4">Hapus localStorage dan reload dari videos.json.</p>
+            <button id="resetBtn" class="px-5 py-2.5 rounded-xl bg-zinc-800 border border-rose-500/50 text-rose-400 hover:bg-rose-500/10 transition">
+              Reset ke videos.json
+            </button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="js/admin.js"></script>
+</body>
+</html>
