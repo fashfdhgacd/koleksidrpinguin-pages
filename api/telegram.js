@@ -46,6 +46,7 @@ async function handleUpdate(update, env) {
       "Kirim link, satu atau banyak:",
       "- videy.co  → Videy",
       "- vicek.id  → ExaStream",
+      "- mumu.watch / mumustream.com → Video AI China",
       "- indoav / userbokep → gallery utama",
       "",
       "Duplikat otomatis di-skip."
@@ -54,7 +55,7 @@ async function handleUpdate(update, env) {
   }
   const links = extractLinks(text);
   if (!links.length) {
-    await reply(env, chatId, "Tidak ada link yang dikenali.\nPakai videy.co, vicek.id, indoav.app, atau userbokep.com.");
+    await reply(env, chatId, "Tidak ada link yang dikenali.\nPakai videy.co, vicek.id, mumu.watch, indoav.app, atau userbokep.com.");
     return;
   }
   if (!env.GH_TOKEN || !env.GH_OWNER || !env.GH_REPO) {
@@ -83,7 +84,7 @@ function extractLinks(text) {
   const seen = new Set();
   for (let u of raw) {
     u = u.replace(/[).,]+$/, "");
-    if (!/videy\.co|vicek\.id|indoav\.app|userbokep\.com/i.test(u)) continue;
+    if (!/videy\.co|vicek\.id|indoav\.app|userbokep\.com|mumu\.watch|mumustream\.com/i.test(u)) continue;
     if (seen.has(u)) continue;
     seen.add(u);
     out.push(u);
@@ -98,11 +99,18 @@ function toItem(url) {
   let direct = url;
   let embed = url;
   let id = "";
-  if (low.includes("videy.co")) {
+  if (low.includes("mumu.watch") || low.includes("mumustream.com")) {
+    category = "Video AI China";
+    source = "Mumu";
+    const code = url.split("/").filter(Boolean).pop();
+    id = code;
+    embed = /\/e\//i.test(url) ? url : ("https://mumu.watch/e/" + code);
+    direct = embed;
+  } else if (low.includes("videy.co")) {
     category = "Videy";
     source = "Videy";
     const m = url.match(/[?&]id=([A-Za-z0-9]+)/);
-    const file = url.match(/cdn\d*\.videy\.co\/([^/?#]+)/i);
+    const file = url.match(/cdn\d*\.videy.co\/([^/?#]+)/i);
     id = (m && m[1]) || (file && file[1].replace(/\.(mp4|mov)$/i, "")) || "";
     const ext = (id.length === 9 && id.endsWith("2")) ? ".mov" : ".mp4";
     direct = (/\.mp4|\.mov/i.test(url) && /cdn/i.test(url)) ? url : (id ? ("https://cdn.videy.co/" + id + ext) : url);
@@ -190,7 +198,7 @@ async function gh(env, path, opt) {
 }
 
 async function reply(env, chatId, text) {
-  const res = await fetch("https://api.telegram.org/bot" + env.BOT_TOKEN + "/sendMessage", {
+  const res = await fetch("https://telegram.org/bot" + env.BOT_TOKEN + "/sendMessage", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: chatId, text: text })
