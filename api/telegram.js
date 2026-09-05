@@ -44,10 +44,10 @@ async function handleUpdate(update, env) {
       "Bot upload Dr. Pinguin aktif.",
       "",
       "Kirim link, satu atau banyak:",
-      "- videy.co  → Videy",
-      "- vicek.id  → ExaStream",
-      "- mumu.watch / mumustream.com → Video AI China",
-      "- indoav / userbokep → gallery utama",
+      "- videy.co  -> Videy",
+      "- vicek.id  -> ExaStream",
+      "- mumu.watch / mumustream.com -> Video AI China",
+      "- indoav / userbokep -> gallery utama",
       "",
       "Duplikat otomatis di-skip."
     ].join("\n"));
@@ -79,7 +79,7 @@ async function handleUpdate(update, env) {
 }
 
 function extractLinks(text) {
-  const raw = text.match(/https?:\/\/[^\s<>"']+/gi) || [];
+  const raw = text.match(/https?:\/\/[^\s<>\"']+/gi) || [];
   const out = [];
   const seen = new Set();
   for (let u of raw) {
@@ -198,7 +198,7 @@ async function gh(env, path, opt) {
 }
 
 async function reply(env, chatId, text) {
-  const res = await fetch("https://telegram.org/bot" + env.BOT_TOKEN + "/sendMessage", {
+  const res = await fetch("https://api.telegram.org/bot" + env.BOT_TOKEN + "/sendMessage", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ chat_id: chatId, text: text })
